@@ -1,0 +1,27 @@
+# Private environment and credentials
+.env
+.env.*
+!.env.example
+*service-account*.json
+*credentials*.json
+application_default_credentials.json
+google-services.json
+local.properties
+*.jks
+*.keystore
+*.pem
+*.key
+# Build/runtime/intermediate data
+work/
+outputs/
+.venv/
+__pycache__/
+.gradle/
+**/build/
+.idea/
+.DS_Store
+*.log
+*.db
+*.sqlite*
+*.tfstate*
+.terraform/
