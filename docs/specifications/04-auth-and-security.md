@@ -33,3 +33,9 @@ History and summaries carry lineage and policy dependencies. Mixed turns with re
 Test prompt injection, role claims in chat/JSON, alternate table spellings, aliases/CTEs, nested queries, direct endpoints, result-ID guessing, pagination cursors, stale streams, generated SQL and API fallback. SQL identifiers are resolved canonically before policy checks. Denial messages do not enumerate hidden tables, columns, account membership or internal SQL. Database text is never trusted as an instruction.
 
 Use TLS, token redaction, encrypted managed storage, server-side credentials and bounded retention. Android stores auth through the identity SDK and excludes sensitive caches from backups. No tokens in URLs, logs, analytics, crash reports or SSE event IDs. App Check/rate limiting may complement authentication but cannot replace it. Verify quotas per UID and tenant to limit abuse.
+
+## Live token and tenant details
+
+Firebase token verification must explicitly request revocation checking; ordinary signature/expiry verification alone does not do it. See [Firebase token verification](https://firebase.google.com/docs/auth/admin/verify-id-tokens). Long-lived streams stop at token expiry and periodically check disabled/revoked identity, in addition to current application policy checks before delivery. Reconnect uses a refreshed token for the same UID and original run/cursor; it never resubmits a message.
+
+V1 has one server-configured demo tenant. Bind each membership and every resource to it; ignore/reject client tenant overrides. Multiple-tenant selection is future work and must add an authorized selection mechanism before it can be enabled. Keep synthetic cross-tenant tests to protect storage boundaries.

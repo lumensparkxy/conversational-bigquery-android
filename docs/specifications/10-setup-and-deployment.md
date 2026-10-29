@@ -34,3 +34,7 @@ Worker execution must continue independently of a client SSE connection. Select 
 ## Secret exclusion
 
 Never commit `.env`, service account JSON, ADC files, tokens, Firebase account configuration, Android signing keys, local.properties, recordings, real user history, raw query outputs or cloud state files. Public examples use placeholders only. Review staged files and run secret detection before each publication. The initial `.gitignore` is defense in depth, not proof that arbitrary file content is safe.
+
+## Local Android connection plan
+
+Keep the sample server bound to the development host's loopback interface. During implementation document and verify an adb reverse tunnel for the chosen port so emulator or USB-connected device can reach it through its own localhost. Do not bind a mock-auth server to a public/LAN interface to make the sample work. If debug HTTP is needed, scope its network-security allowance to the sample/debug build and local address; live builds require TLS. Confirm the actual tunnel/build commands in the Android lesson rather than publishing an untested quickstart here.

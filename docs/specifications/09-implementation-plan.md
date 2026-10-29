@@ -5,7 +5,7 @@ No task below is marked implemented. Work in dependency order; each phase should
 | Phase/task | Dependencies | Implementation deliverable | Acceptance evidence |
 | --- | --- | --- | --- |
 | P0.1 Compatibility decisions | none | Record Android SDK/JDK/Kotlin/Compose, Python/ADK/FastAPI, model interface and libraries; dependency lock strategy | Clean documented toolchain install; compatible minimal experiments kept separate from claimed app |
-| P0.2 Environment decisions | none | Resolve checklist privately; select identity/storage/adapter options; budget policy | Reviewed decision record; no invented project ID |
+| P0.2 Environment decisions | none | Record defaults privately; distinguish local choices from deferred live configuration | Sample work unblocked; live project/IAM/model values may remain explicitly unresolved until needed |
 | P1.1 Contracts | P0.1 | OpenAPI, JSON Schemas for events/results/tools/domain; complete synthetic examples | Positive/negative contract tests; no open-ended model UI |
 | P1.2 Fixtures | P1.1 | Logical source fixtures, expected aggregates, scripted model/tool observations | Exact expected values from testing spec |
 | P2.1 Sample backend | P1 | Deterministic scripted response provider, mock identity, session/run/SSE lifecycle | Runs on loopback with no cloud/model credentials; conspicuous sample mode; cancellation/reconnect tests |
@@ -25,3 +25,7 @@ No task below is marked implemented. Work in dependency order; each phase should
 For P2, publish exact local commands only after the implementation exists and they are tested. Expected future workflow: install pinned backend dependencies, start sample server on loopback, build/install sample Android flavor, select one of two synthetic roles, run documented fixture conversations. Sample mode must work without Google Cloud, Firebase, Gemini or MCP accounts and must not claim arbitrary questions are live analytics. Unknown scripted inputs return a sample-mode limitation.
 
 Before P5, keep custom SQL behind a disabled feature flag until P4 gateway and bypass tests pass. Before P6, review infrastructure changes and estimated costs with the environment owner. Completion means acceptance evidence exists, not that a folder or TODO was added.
+
+## Learning-sized checkpoints
+
+Use the [learning path](13-learning-path.md) to divide these phases into individual lessons. P0.2 does not require paid setup before sample work. Implement policy logic with synthetic verified principals before connecting Firebase; add the live verifier only when identity configuration is authorized. Synthetic metric fixtures likewise precede live data discovery; P4.1 validates their mapping to actual source data. Each module should end with a small working demonstration, a failure case and a learner explanation before moving on.

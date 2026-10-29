@@ -18,7 +18,7 @@ Continuous live voice, speech synthesis, uploads/document retrieval, scheduled r
 
 ## Clarifications and outcomes
 
-“Hi” gets a greeting and zero database calls. “What is a growth rate?” can be explained without data. “Sales by region” requires a definition of region if not in the configured dimensions. New analytical requests without dates ask for dates; no silent all-time scan. Relative dates use server-resolved timezone and calendar boundaries shown to the user. No Zurich/Switzerland or currency assumptions based on device locale.
+“Hi” gets a greeting and zero database calls. “What is a growth rate?” can be explained without data. “Sales by region” requires a definition of region if not in the configured dimensions. New time-based sales requests without dates ask for dates; no silent all-time scan. Current catalog counts and listings do not require a date range and must not inherit sales-only filters. Relative dates use server-resolved timezone and calendar boundaries shown to the user. No Zurich/Switzerland or currency assumptions based on device locale.
 
 Keep distinct UI states for clarification needed, no data, denied, unsupported, query failed, cancelled, and successful response. A denial can say: “Your account doesn’t have access to sales figures. I can help with the product information available to you.” Offer only permitted alternatives. Never replace failed/no-data results with invented numbers or fixture data in live mode.
 

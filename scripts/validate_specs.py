@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate specification structure only; no application or cloud tests."""
 from pathlib import Path
+import json
 import re
 import sys
 from urllib.parse import unquote
@@ -10,8 +11,12 @@ errors = []
 required = ['README.md', 'docs/specifications/README.md']
 required += [f'{d}/README.md' for d in ('android', 'backend', 'contracts', 'infra', 'tests', 'scripts')]
 specs = sorted((root / 'docs/specifications').glob('[0-9][0-9]-*.md'))
-if len(specs) != 12:
-    errors.append(f'Expected 12 numbered specifications, found {len(specs)}')
+index = (root / 'docs/specifications/README.md').read_text()
+if not specs or [int(p.name[:2]) for p in specs] != list(range(1, len(specs) + 1)):
+    errors.append('Numbered specifications must be nonempty and sequential from 01')
+for spec in specs:
+    if f'({spec.name})' not in index:
+        errors.append(f'Chapter missing from specification index: {spec.name}')
 for relative in required:
     path = root / relative
     if not path.is_file() or len(path.read_text().strip()) < 60:
@@ -28,6 +33,11 @@ for path in root.rglob('*'):
     if path.suffix != '.md':
         continue
     checked += 1
+    for example in re.findall(r'```json\s*\n(.*?)\n```', path.read_text(), re.S):
+        try:
+            json.loads(example)
+        except json.JSONDecodeError as exc:
+            errors.append(f'Invalid fenced JSON in {relative}: {exc}')
     for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', path.read_text()):
         if '://' in target or target.startswith(('#', 'mailto:')):
             continue

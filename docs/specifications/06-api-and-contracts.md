@@ -22,7 +22,7 @@ This is the normative contract design. P1 must translate it into OpenAPI 3.1 and
 
 Each persisted event has SSE `id: <run_id>:<monotonic_sequence>`, `event: <type>`, and a JSON `data` object `{schema_version: "1", run_id, sequence, emitted_at, payload}`. Event types: accepted, status, text_delta, response, error, cancelled, done. Status payload uses thinking/checking/querying/formatting; never hidden reasoning. Heartbeat comments every 15 seconds carry no data. Persist before delivery.
 
-Only validated final response text may be chunked as text_delta in v1; buffer analytical narration until grounding checks pass. There is exactly one terminal outcome and one done event with terminal status. Transport failures use error events after headers have been sent. Last-Event-ID replays subsequent authorized persisted events; invalid cross-run cursors are rejected. Expired replay retention returns 410 and the client retrieves current run state. Reconnect never reruns the agent.
+Only validated final response text may be chunked as text_delta in v1; buffer analytical narration until grounding checks pass. There is exactly one terminal outcome and one done event with terminal status. Application failures after headers may use error events while the connection is writable. A broken transport cannot guarantee delivery of any event; the client recovers through the run endpoint and replay. Last-Event-ID replays subsequent authorized persisted events; invalid cross-run cursors are rejected. Expired replay retention returns 410 and the client retrieves current run state. Reconnect never reruns the agent.
 
 ## Result data and block types
 
@@ -58,3 +58,15 @@ Provenance includes domain and metric versions, public source table identifiers 
 Synthetic result row is `{"sales":"150.00"}` with a decimal column and mode sample. IDs here are illustrative; production ID schema requires UUIDs. P1 must produce full schema-valid examples including provenance rather than treating this abbreviated example as a golden payload.
 
 Pagination does not imply analytical completeness. Full aggregate series must fit the bounded result or be reaggregated; fetching only page one must never render a complete-looking chart. Reuse requires a complete sufficient result with current authorization and unexpired freshness policy. A different grouping/filter needing missing rows returns needs_query.
+
+## Protocol decisions required for consistent clients
+
+A completed run has outcome answered, clarification_needed, no_data, denied or unsupported. Execution/validation exhaustion uses failed with query_failed and a safe error code (including MODEL_FAILED or FORMAT_FAILED); cancellation uses cancelled. The broad query_failed outcome covers execution failures in v1, not just SQL errors. Acceptance can fail asynchronously before a worker starts, so accepted may transition directly to failed.
+
+Persist terminal response/error/cancelled plus done atomically with terminal run state. Replay is at-least-once delivery: clients deduplicate by run_id/sequence. Replayed terminal events are not additional terminal transitions. A response contains canonical full text; if text_delta was displayed, replace that draft with response.text rather than appending it. A deleted or newly unauthorized run may no longer replay historical success events.
+
+At most 500 rows and 256 KiB are materialized per result across all pages, not per page. Proposed table page size is 50 rows, maximum 100. `status` describes the whole stored bounded result; paging a complete stored result does not make it partial. Include page start offset and returned count; `total_row_count` is null if unknown. Opaque authenticated cursors bind result ID, owner, tenant, policy version, sort order, offset and expiry; do not accept caller-controlled offsets. Immutable stored rows provide stable pagination. Exceeding the total bound produces partial with a warning or requests narrower scope, never an unbounded paging loophole. Metric blocks cannot reference partial aggregates.
+
+Clarification payload is `{question, missing_fields, choices}` with choices an optional bounded array of text labels. Keep the pending intent server-side; the next normal message resolves it. Result provenance fields not applicable to catalog requests (dates, timezone, status rules) are explicitly null, not fabricated. Tables and scalar count results can therefore represent catalog-only questions.
+
+P1 must define payload schemas for every event, timestamps as RFC 3339 UTC, UUID resource IDs, sequence as positive integer, stable error-code enum, default/max page limits, cursor expiry and all report-specific input variants. No implementation phase may mark P1 complete with this prose alone: schema-valid full examples and rejection tests are mandatory.

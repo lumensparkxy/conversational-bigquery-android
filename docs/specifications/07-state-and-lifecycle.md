@@ -16,6 +16,7 @@ Default proposed retention: sessions/results/events 7 days, redacted security au
 stateDiagram-v2
   [*] --> accepted
   accepted --> running
+  accepted --> failed
   running --> completed
   running --> failed
   accepted --> cancelling
@@ -37,3 +38,9 @@ Before each context rebuild, tool call and output delivery, load current policy.
 ## Follow-up merge algorithm
 
 Resolve new explicit fields against the scoped domain; retain compatible prior metric/date/grain/filter fields; replace only mentioned dimensions/filters. Record the effective state shown with the answer. Clarify when a new metric makes old filters invalid, when “there/that” has multiple antecedents, or when a comparison lacks a baseline. Commit state only after valid clarification resolution or successful analysis; failures must not silently overwrite the last successful state. “As a table” changes presentation only if cached data is authorized, complete and sufficient. Otherwise explain the need for a new query or narrower scope.
+
+## Clarification, expiry and revocation races
+
+Keep pending clarification separately from last successful analytical state. When a user supplies only “January 2025,” resolve the saved missing-date question without losing its metric; cancellation/new-session resets the pending intent. Retention expiry (default seven days) controls storage availability; reuse freshness (default fifteen minutes) controls whether old values may answer a new analysis. Historical answers may be viewed with their original timestamp within retention if still authorized, but stale results cannot be silently reused for a new current answer.
+
+Define the authorization linearization point as the final successful policy check immediately before server emission. A role change committed before this check must prevent the send; a change after it cannot retract bytes already handed to the transport. Do not claim absolute instantaneous revocation over in-flight network buffers. Serialize policy version checks and output admission, invalidate queued unadmitted batches, and test both race orderings. Stop/revocation can finish the application run while remote query cancellation remains pending; the reconciler retains job tracking until the real remote state is known.

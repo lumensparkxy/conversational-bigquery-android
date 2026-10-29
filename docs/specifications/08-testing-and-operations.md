@@ -45,3 +45,18 @@ CI defaults to fixtures/mocks/emulators with no cloud credentials or paid model 
 Log request/run correlation IDs, pseudonymous UID, policy version, permitted route, query fingerprint, denial category, turn/retry counts, duration, bytes processed/billed, model tokens, cost estimate, cancellation outcome and result completeness. Do not log tokens, audio, raw prompts/results, personal fields or full SQL parameter values by default. Restricted diagnostic SQL references require access control and retention. Do not store chain-of-thought.
 
 Track p50/p95 latency, success/no-data/error/denial rates, reuse hit rate, duplicate-job count, cost per successful answer, budget rejections, model grounding failures and schema drift. Alert on unexpected spend, auth failures, query-control failures and duplicate jobs. A failure runbook disables live execution, preserves redacted evidence, and restores service only after fixture/security regression checks. Separate correctness failures from availability incidents.
+
+## Additional review cases
+
+| ID | Scenario | Required assertion |
+| --- | --- | --- |
+| T22 | Viewer asks catalog count/list without dates | Permitted products-only route; fixture count 2; no sales-date clarification |
+| T23 | January vs February calendar growth; unequal custom days | Monthly totals accepted and labeled; incompatible custom intervals clarified |
+| T24 | Eligible item amount becomes null | Affected sales/average null with warning; order count preserved; no partial sum |
+| T25 | Expired/revoked token during SSE, then refresh | Stop unauthorized delivery; same-UID replay without a new job |
+| T26 | Page beyond 500 rows/256 KiB; tampered cursor | No cap bypass; partial status or narrower query; no chart of partial data |
+| T27 | Failure before worker starts; terminal-event replay | accepted to failed allowed; one persisted terminal outcome; deduplicated UI |
+| T28 | Missing date supplied in next message | Pending metric retained; correct explicit interval before query |
+| T29 | Queue expires or cancellation cannot stop remote job | No new work/late output; reservations remain until reconciliation |
+
+For T24, change O1's P2 amount from 50 to null: January sales and average become null, orders remain 2; category A remains 140, B sales becomes null. Treat calendar comparisons as totals over complete months, explaining unequal day counts. These are additional fixture requirements, not executed application tests.

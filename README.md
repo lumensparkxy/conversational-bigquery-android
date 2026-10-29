@@ -8,6 +8,8 @@ TheLook is fictitious public ecommerce data. This demo's access controls demonst
 
 ## Start here
 
+Start with the [step-by-step learning path](docs/specifications/13-learning-path.md) for module objectives, exercises and checkpoints. See the [specification audit](docs/reviews/2026-10-29-specification-audit.md) and [requirements map](docs/specifications/14-requirements-traceability.md) for coverage and remaining work.
+
 Read the [specification index](docs/specifications/README.md), then execute the [phased implementation plan](docs/specifications/09-implementation-plan.md). Each phase has dependencies and evidence required for completion. The documents are self-contained and distinguish design requirements from verified runtime behavior.
 
 - Default design: Kotlin/Jetpack Compose, Python/FastAPI, Google ADK with one configurable Gemini tool-calling agent, eventual Cloud Run hosting.
