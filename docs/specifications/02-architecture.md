@@ -53,3 +53,9 @@ scripts/
 Android is untrusted. Chat text, SQL proposed by the model, tool arguments, database text, cached results and retrieved history are untrusted until checked. Verify identity before context reconstruction. Scope all stores and tools by identity, tenant and current policy. Database text is data, never instructions. Public dataset access does not justify exposing user-level fields or collecting personal-looking records.
 
 Cloud Run instances are stateless workers; durable request/job mapping must survive restart. A task lease and reconciler recover accepted runs. Event replay reads authorized persisted events and never starts a new query. Details are in the lifecycle specification.
+
+## Reuse existing platforms and keep scope small
+
+The default remains a modular backend and one conversational agent. Semantic definitions and execution are an interface boundary: a future customer could supply an approved semantic service instead of raw BigQuery queries. This is a substitution point, not a commitment to build several cloud adapters now. Evaluate the customer's existing BI/analytics option before commercial expansion; see the [build-versus-buy review](15-product-charter-and-value-validation.md).
+
+Per-run agent context must be isolated even when a worker handles concurrent users; no global mutable session history. Queue delivery, model invocation, query execution and event delivery have separate retry boundaries. Database query idempotency does not make every model invocation exactly once; account for retried inference cost and never start new attempts outside the run budget. Enterprise identity, data isolation and operating requirements remain conditional [future gates](16-enterprise-readiness.md).

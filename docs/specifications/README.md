@@ -16,10 +16,13 @@ Read in order, then work from the task plan:
 10. [Setup, dependency pinning and deployment](10-setup-and-deployment.md)
 11. [Decisions and unresolved configuration](11-decisions-and-configuration.md)
 12. [Authoritative references and verification boundaries](12-references.md)
-
 13. [Step-by-step learning path](13-learning-path.md)
 14. [Requirements and acceptance map](14-requirements-traceability.md)
+15. [Product charter, learning purpose and commercial validation](15-product-charter-and-value-validation.md)
+16. [Conditional enterprise readiness gates](16-enterprise-readiness.md)
 
 See the [specification audit](../reviews/2026-10-29-specification-audit.md) for corrections and known limits.
 
 Precedence: security and ownership constraints apply to every route. A convenience sample, diagram or default cannot override them. If a required platform capability is unavailable, fail closed, record a decision and revise the design; do not silently remove the control. Update contracts and acceptance cases together when behavior changes.
+
+The [product/architecture review](../reviews/2026-10-29-product-architecture-review.md) distinguishes learning fit from commercial evidence and enterprise readiness. Read chapters 15–16 for that context; they do not add cloud setup or enterprise implementation prerequisites to local lessons.

@@ -6,6 +6,10 @@ Build an Android chat experience that answers ecommerce questions using one conv
 
 TheLook is fictitious public ecommerce data. This demo's access controls demonstrate application authorization; they do not make that public dataset private. Dataset schema, coverage, currency, and location require inspection before live implementation.
 
+## Purpose
+
+Learning and portfolio development come first; commercial direction comes later. This project demonstrates governed conversational analytics, not a proven enterprise product or a guaranteed business opportunity. See the [product charter](docs/specifications/15-product-charter-and-value-validation.md), [product/architecture review](docs/reviews/2026-10-29-product-architecture-review.md) and [conditional enterprise gates](docs/specifications/16-enterprise-readiness.md).
+
 ## Start here
 
 Start with the [step-by-step learning path](docs/specifications/13-learning-path.md) for module objectives, exercises and checkpoints. See the [specification audit](docs/reviews/2026-10-29-specification-audit.md) and [requirements map](docs/specifications/14-requirements-traceability.md) for coverage and remaining work.

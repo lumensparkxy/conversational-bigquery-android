@@ -41,3 +41,9 @@ L00–L07 can be developed without paid cloud resources. Tool installation can r
 Start with L00/P0.1: inspect the development tools, choose compatible pinned versions, and write the local toolchain decision. Then L01 authors machine-readable contracts and full examples. Do not jump to generated SQL or cloud deployment before the contracts, deterministic sample and policy gates exist.
 
 The phase plan governs dependencies, so a lesson may use a fake implementation until its live dependency is ready. “Lesson completed locally” and “live capability verified” are separate statuses; neither implies release readiness.
+
+## Product and architecture reflection at checkpoints
+
+At L00, read the [product charter](15-product-charter-and-value-validation.md) and explain the difference between a learning project, a valuable business workflow and a proven commercial product. At L11/L12, compare the finite semantic compiler with the generated-SQL extension: identify what each validator can and cannot guarantee. At L15, review an unsupported causal question and a plausible but wrong metric answer; chart validity alone is not a pass.
+
+L13 can initially integrate only templates/semantic plans. Advanced generated SQL is the optional P5.3 extension after that working journey. After L16, discuss [enterprise gates](16-enterprise-readiness.md) as an architecture exercise; do not implement them or collect private data without a separately approved scope. Record one build-versus-buy tradeoff in the portfolio even if the selected demo deliberately builds a component to learn it.

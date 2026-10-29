@@ -26,3 +26,15 @@ Record the phase and requirement rows covered, tests actually executed, sanitize
 ## Intentionally unfinished design artifacts
 
 P1 still owes machine-readable OpenAPI/JSON Schemas and complete examples; P0 owes pinned toolchain decisions; P4.1 owes verified live schema mappings. These were intentionally deferred implementation deliverables, not missing files caused by interrupted repository creation. The specifications are sufficient to start P0/P1, but they are not a claim that every live implementation decision is settled.
+
+## Product/architecture review additions
+
+| Requirement | Owning specification | Phase/gate | Evidence |
+| --- | --- | --- | --- |
+| Learning first; commercial claims remain hypotheses | [product charter](15-product-charter-and-value-validation.md) | P0/P7 | ADR 0001; reproducible lessons; no invented adoption/ROI claims |
+| Finite semantic plan before optional generated SQL | [gateway](05-agent-and-query-gateway.md) | P4.3/P5.3 | T31, T32; disabled-route and semantic mismatch tests |
+| Descriptive answers, inspectable definitions and correction loop | [UX](01-product-and-ux.md), [evals](08-testing-and-operations.md) | P5/P6 | T30, T35, T36; held-out review |
+| Concurrent isolation and durable dispatch recovery | [state](07-state-and-lifecycle.md) | P3/P6 | T33, T34; workload/failure evidence |
+| Private-data adoption requires identity/data/operating approval | [enterprise gates](16-enterprise-readiness.md) | Future E01–E09 | Customer-specific admission evidence; no gates passed today |
+
+Enterprise gates are conditional future requirements and do not change the current repository into an enterprise implementation project.

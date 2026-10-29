@@ -38,3 +38,9 @@ Never commit `.env`, service account JSON, ADC files, tokens, Firebase account c
 ## Local Android connection plan
 
 Keep the sample server bound to the development host's loopback interface. During implementation document and verify an adb reverse tunnel for the chosen port so emulator or USB-connected device can reach it through its own localhost. Do not bind a mock-auth server to a public/LAN interface to make the sample work. If debug HTTP is needed, scope its network-security allowance to the sample/debug build and local address; live builds require TLS. Confirm the actual tunnel/build commands in the Android lesson rather than publishing an untested quickstart here.
+
+## Release claims and enterprise boundary
+
+A successful P6/P7 deployment is a verified public-data demo only. Before connecting private data, follow [enterprise gates E01–E08](16-enterprise-readiness.md), including a real identity-to-database access design and provider/region/retention review. SSO, isolation, audit evidence and an applicable support agreement must be evaluated for the specific customer; choosing managed cloud services does not provide these automatically to this application.
+
+For the learning deployment, record and test the durable dispatch decision, per-instance versus distributed quota handling, bounded queue behavior, timeout reconciliation and worker authentication. A worker callback uses workload identity; it is not an extra unauthenticated public API. No queue/service is selected or provisioned by this documentation review.

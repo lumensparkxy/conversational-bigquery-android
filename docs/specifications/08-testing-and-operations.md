@@ -60,3 +60,25 @@ Track p50/p95 latency, success/no-data/error/denial rates, reuse hit rate, dupli
 | T29 | Queue expires or cancellation cannot stop remote job | No new work/late output; reservations remain until reconciliation |
 
 For T24, change O1's P2 amount from 50 to null: January sales and average become null, orders remain 2; category A remains 140, B sales becomes null. Treat calendar comparisons as totals over complete months, explaining unequal day counts. These are additional fixture requirements, not executed application tests.
+
+## Product-quality review and regression evidence
+
+In addition to deterministic fixtures, author a held-out evaluation set before tuning prompts. Proposed learning target: at least 60 scenarios covering supported reports, follow-ups, ambiguity, unsupported causal questions, refusals, stale/partial data and adversarial input, with paraphrases and some full conversations. Keep authoring examples separate from evaluation examples. For live-model checks repeat scenarios across at least three runs/settings-preserving trials; report counts, variation and failures. These numbers are educational test-design choices, not a statistical guarantee of enterprise accuracy.
+
+Score intent/metric interpretation, effective filters/dates, permission result, query/aggregation correctness, numeric grounding, completeness/limitations, and useful task completion separately. Exact SQL string equality is not the oracle; compare plan semantics and results to an independently reviewed reference. A model-as-judge may help triage language quality but cannot approve security or replace numeric/domain review. Report incorrect answers and abstentions separately so an agent that refuses everything does not look accurate.
+
+The learning release requires all deterministic/security cases to pass and all known material wrong-answer failures in the chosen supported demo journeys to be resolved or the affected route disabled. No aggregate percentage can waive an unauthorized disclosure. Enterprise pilots add customer-held-out cases and pre-agreed quality thresholds under E04; the synthetic suite alone cannot certify private business definitions.
+
+Record application commit, prompt/tool/domain/policy versions, model identifier/settings, data fixture/snapshot identity, reviewer and evaluated date. Re-evaluate after model, prompt, parser, schema or metric changes, not only code changes. Flag public live results as time-specific. At P6 implement feedback review: reproduce the problem within authorized scope, categorize it, add a regression case, review a fix and release through the normal versioned process. No automatic training on feedback.
+
+| ID | Additional scenario | Acceptance |
+| --- | --- | --- |
+| T30 | “Why did sales fall?” with only descriptive data | Supported breakdown or clarification; no invented causal explanation |
+| T31 | Generated SQL drops a status filter or changes denominator | Reject semantic mismatch despite valid SQL and permitted tables |
+| T32 | Compiled custom growth with typed plan; generated route disabled | Correct fixture result through same gateway; disabled route cannot be enabled by chat |
+| T33 | Concurrent users and reused agent instance | No context/identity/result leakage; quotas hold across worker instances |
+| T34 | Lost dispatch after accepted, duplicate queue delivery, expired queued run | Recovery without duplicate job; safe timeout terminalization and released session occupancy |
+| T35 | Feedback on other/denied/deleted run; repeated own PUT | No privilege gain or copied content; idempotent owned update and retention cleanup |
+| T36 | Metric definition change with cached/historical results | Incompatible reuse denied; old allowed history retains original version and limitations |
+
+Private-data gates additionally require direct database-scope bypass, IdP deprovisioning, provider/region restrictions, restore and customer-retention tests. These are future enterprise tests, not claimed capabilities of the public demo. See [enterprise readiness](16-enterprise-readiness.md).

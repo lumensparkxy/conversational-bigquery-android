@@ -1,5 +1,7 @@
 # Product and Android experience
 
+Primary purpose is learning and portfolio development; commercial fit remains a hypothesis. The [product charter](15-product-charter-and-value-validation.md) defines success and the [enterprise gates](16-enterprise-readiness.md) apply only to a separately approved private-data expansion.
+
 ## Goal and scope
 
 A developer demo lets a signed-in user converse about permitted ecommerce data, understand each metric, inspect evidence, and refine a question without restating everything. V1 includes typed chat, push-to-talk transcription, clarification, bounded analysis, metric cards, line/bar charts, tables, cancellation, history, two roles, and local deterministic samples. No ingestion pipeline is needed: query the public dataset in place.
@@ -31,3 +33,11 @@ Support TalkBack labels, dynamic text, sufficient contrast, non-color-only serie
 ## Completion evidence
 
 Record emulator screenshots and interaction tests for both roles and sample mode; verify at least one physical-device speech flow before claiming voice readiness. Sample APKs must not point to a live backend or carry live identities. No live build may expose a role selector or mock-auth toggle.
+
+## Answer inspection and limits
+
+The final learning release includes an answer-details view: metric definition/version, effective filters and dates, source/query timestamps, completeness, sample/live mode and warnings. “Definition reviewed” describes the definition's review status, not a guarantee that every answer is correct. No model-generated confidence percentage or unexplained “trusted” badge.
+
+Keep explanations descriptive. For “why did sales fall?”, offer a supported breakdown that shows which groups changed, distinguish that from a causal explanation, and state when the available data cannot establish cause. Never infer stockouts, campaigns, profit or refunds from fields that do not support them. Do not present a top-N subset as the whole population.
+
+At P6 add a small helpful/not-helpful control with reason codes, linked to the owned run. It submits no message to external services. A reported wrong answer enters an authorized review process; it does not automatically train the model or change definitions. The first sample UI can omit feedback until that lesson. See the feedback contract in specification 06.

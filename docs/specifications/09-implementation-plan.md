@@ -15,10 +15,11 @@ No task below is marked implemented. Work in dependency order; each phase should
 | P3.2 Durable lifecycle | P2.1, P3.1 | Persistent runs/results/events, leases/reconciler, retention | Restart/idempotency/cancel-race tests; no duplicate jobs in fake adapter |
 | P4.1 Data inspection | P0.2, authorized cloud access | Bounded metadata/profile report; verified mappings, location, currencies/statuses | Reviewed sanitized snapshot and quality results; unverified metrics disabled |
 | P4.2 Domain metrics | P4.1, P1.2 | Versioned semantic registry/templates and lineage | Independent SQL review and fixture known-answer checks |
-| P4.3 Query gateway | P3, P4.2 | AST policy, dry-run, job caps, shared adapter and scoped metadata | Security matrix passes for template/generated/MCP/API routes |
+| P4.3 Query gateway | P3, P4.2 | Finite semantic compiler, AST policy, dry-run, job caps, shared adapter and scoped metadata | Template/plan/adapter security tests pass; generated route disabled and bypass attempts denied |
 | P5.1 Agent | P4.3 | One bounded ADK agent, scoped tools/context, model configuration | Small talk zero jobs, clarifications, multi-turn/reuse, failure budgets and grounded output evaluations |
 | P5.2 Live Android integration | P5.1, P2.3 | Live login, authenticated stream, history and revocation handling | End-to-end two-role evidence, malformed/partial data rejection, logout cleanup |
-| P6.1 Operations | P5 | Redacted metrics/audit, budget alerts, runbooks, secret scan | No credentials in source/log fixtures; retention/cancellation and incident drill |
+| P5.3 Advanced generated SQL (optional release extension) | P5.1, P4.3 | Same-agent candidate generation for an enumerated, verifiable plan/SQL subset | T07/T08/T31; independent semantic review; disable if conformance cannot be proved |
+| P6.1 Operations | P5.1, P5.2 | Redacted metrics/audit, budget alerts, answer feedback, held-out evals, runbooks, secret scan | No credentials in source/log fixtures; T30–T36; retention/cancellation and incident drill |
 | P6.2 Opt-in cloud validation | P6.1, environment authorization | Least-privilege staged deployment and explicit paid live tests | Actual revision/config, live correctness, spend and access evidence |
 | P7 Release readiness | P6.2 | Updated README/setup, supported versions, license decision, demo recording | Reproducible sample and live setup; security gates pass; no unsupported claims |
 
@@ -29,3 +30,9 @@ Before P5, keep custom SQL behind a disabled feature flag until P4 gateway and b
 ## Learning-sized checkpoints
 
 Use the [learning path](13-learning-path.md) to divide these phases into individual lessons. P0.2 does not require paid setup before sample work. Implement policy logic with synthetic verified principals before connecting Firebase; add the live verifier only when identity configuration is authorized. Synthetic metric fixtures likewise precede live data discovery; P4.1 validates their mapping to actual source data. Each module should end with a small working demonstration, a failure case and a learner explanation before moving on.
+
+## Portfolio release boundary
+
+P7 means the public-data learning demo meets its documented scope; it is not an enterprise launch gate. Complete a thin vertical slice first: greeting, one sales report, one scoped follow-up, table reuse and viewer denial, then expand. P5.3 is retained as an advanced lesson but is not required to release the template/semantic-plan demo; a disabled route is reported as disabled, never as successfully tested live custom SQL.
+
+The [product charter](15-product-charter-and-value-validation.md) and [learning-first decision](../decisions/0001-learning-first-scope.md) govern scope. Private customer data requires separate authorization and the [enterprise admission gates](16-enterprise-readiness.md). Do not schedule enterprise SSO, shared SaaS tenancy, multi-cloud connectors or a sales process merely to finish P0–P7.

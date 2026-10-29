@@ -1,6 +1,6 @@
 # API, streaming and result contracts
 
-This is the normative contract design. P1 must translate it into OpenAPI 3.1 and JSON Schema with closed objects, discriminated unions, fixtures and compatibility tests before app code. All endpoints except health require Bearer ID token in live mode. Unknown fields fail validation. Opaque UUID identifiers are never authorization.
+This is the normative contract design. P1 must translate it into OpenAPI 3.1 and JSON Schema with closed objects, discriminated unions, fixtures and compatibility tests before app code. All public /v1 endpoints except any explicitly documented health endpoint require Bearer ID token in live mode. Internal worker callbacks are separately workload-authenticated and are not public user API routes. Unknown fields fail validation. Opaque UUID identifiers are never authorization.
 
 ## HTTP surface
 
@@ -70,3 +70,9 @@ At most 500 rows and 256 KiB are materialized per result across all pages, not p
 Clarification payload is `{question, missing_fields, choices}` with choices an optional bounded array of text labels. Keep the pending intent server-side; the next normal message resolves it. Result provenance fields not applicable to catalog requests (dates, timezone, status rules) are explicitly null, not fabricated. Tables and scalar count results can therefore represent catalog-only questions.
 
 P1 must define payload schemas for every event, timestamps as RFC 3339 UTC, UUID resource IDs, sequence as positive integer, stable error-code enum, default/max page limits, cursor expiry and all report-specific input variants. No implementation phase may mark P1 complete with this prose alone: schema-valid full examples and rejection tests are mandatory.
+
+## Feedback and answer-quality provenance (P6)
+
+Add `PUT /v1/sessions/{sid}/runs/{rid}/feedback` only at the feedback lesson, with verified ownership and current access checks. Body is a closed object: `rating` = helpful/not_helpful/null and `reason` = wrong_metric/wrong_filter/wrong_value/stale/unclear/other/null. A null rating clears the feedback; reason must also be null. Helpful requires null reason. Not_helpful requires a reason. No raw prompt/result or unrestricted free text is copied into telemetry. Return 200 with the current feedback. Repeated identical PUT is idempotent; another user's run returns generic 404. Feedback shares session deletion/retention and adds no data-access privilege.
+
+P1 schemas must reserve explicit provenance fields for definition review state, definition version, query route (template/semantic_plan/generated_sql/reuse) and limitations. Grounding checks validate the metric/filter interpretation as well as numeric cell references. For an answer that cannot be safely narrated, return a verified structured result with deterministic text or a safe failure, never an invented confidence score. Reported feedback is evidence for human review, not automatic permission to retain customer content beyond policy.

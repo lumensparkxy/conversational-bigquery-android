@@ -57,3 +57,11 @@ Define standard report IDs `monthly_sales`, `category_ranking`, `country_compari
 For sales comparisons record comparison_basis = calendar_period or equal_days; display both ranges. Calendar-month growth is a change in monthly totals, not a daily normalized growth measure. Reject incompatible grain/overlapping periods in v1. Resolve relative dates once per run and persist them; retries cannot move the window.
 
 If an entire requested scope has no eligible rows, return no_data. Within an otherwise populated complete series, fill proven empty calendar buckets with zero. If eligible rows have missing amounts, return null monetary values for affected buckets, no average, and a quality warning; counts may still render. Reject duplicate source keys and unapproved join cardinality before enabling affected metrics. Missing category/user mappings use Unknown only when a reviewed left-join policy preserves base facts; never silently drop rows with an inner join.
+
+## Definition ownership and change control
+
+Each metric registry entry also needs a named role responsible for the definition, review state (draft/reviewed/retired), effective version, glossary/synonyms, verified source mappings, freshness expectations, allowed comparisons and known exclusions. In the demo the developer can be the declared owner; do not imply an independent finance approval. In a private pilot the customer's data steward must approve the mapping. The first public implementation must not introduce a conflicting definition called “revenue” beside the documented sale-amount measure.
+
+Only reviewed and schema-compatible definitions are enabled for live reports. A change to status eligibility, date basis, join, null policy or currency semantics changes the metric version and invalidates incompatible caches and expected answers. Retain original provenance for historical responses; do not relabel them under a new definition. Retired/denied definitions cannot be reconstructed from old chat context.
+
+Source modification time, max observed event time and query time are different facts. State which is available. If source freshness/completeness is unknown, do not imply the current month is finalized or that historical restatements cannot occur. Data freshness SLAs require a real data owner; this project has no ingestion pipeline or control over public dataset updates.
