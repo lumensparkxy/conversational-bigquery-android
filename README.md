@@ -12,6 +12,8 @@ Learning and portfolio development come first; commercial direction comes later.
 
 ## Start here
 
+Use the [component-by-component setup guide](docs/specifications/17-component-setup-guide.md) for numbered substeps covering data, MCP, backend endpoints, Android, identity, storage, queries, the agent, voice and deployment.
+
 Start with the [step-by-step learning path](docs/specifications/13-learning-path.md) for module objectives, exercises and checkpoints. See the [specification audit](docs/reviews/2026-10-29-specification-audit.md) and [requirements map](docs/specifications/14-requirements-traceability.md) for coverage and remaining work.
 
 Read the [specification index](docs/specifications/README.md), then execute the [phased implementation plan](docs/specifications/09-implementation-plan.md). Each phase has dependencies and evidence required for completion. The documents are self-contained and distinguish design requirements from verified runtime behavior.

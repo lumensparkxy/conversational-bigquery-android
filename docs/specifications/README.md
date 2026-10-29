@@ -20,6 +20,7 @@ Read in order, then work from the task plan:
 14. [Requirements and acceptance map](14-requirements-traceability.md)
 15. [Product charter, learning purpose and commercial validation](15-product-charter-and-value-validation.md)
 16. [Conditional enterprise readiness gates](16-enterprise-readiness.md)
+17. [Component-by-component setup guide](17-component-setup-guide.md)
 
 See the [specification audit](../reviews/2026-10-29-specification-audit.md) for corrections and known limits.
 

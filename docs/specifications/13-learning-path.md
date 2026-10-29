@@ -1,5 +1,7 @@
 # Step-by-step learning path
 
+For numbered setup/build substeps organized by database, MCP, backend, Android and the remaining components, use the [component setup guide](17-component-setup-guide.md).
+
 This repository is both an implementation specification and a learning project. Learn one boundary at a time: understand the input, build a small piece, observe its output, deliberately break it, then explain why the protection works. These are planned lessons, not existing tutorials or completed application modules.
 
 ## How to work through a lesson

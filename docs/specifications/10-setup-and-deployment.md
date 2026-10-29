@@ -1,5 +1,7 @@
 # Setup and deployment guidance
 
+For numbered setup/build substeps organized by database, MCP, backend, Android and the remaining components, use the [component setup guide](17-component-setup-guide.md).
+
 ## Today: specifications only
 
 Clone the public repository and run `python3 scripts/validate_specs.py`. There is no Gradle wrapper, backend executable, fixture server, Docker image or deployed URL yet. Do not substitute guessed application commands or represent this check as application testing.

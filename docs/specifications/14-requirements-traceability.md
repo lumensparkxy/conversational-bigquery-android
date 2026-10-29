@@ -38,3 +38,7 @@ P1 still owes machine-readable OpenAPI/JSON Schemas and complete examples; P0 ow
 | Private-data adoption requires identity/data/operating approval | [enterprise gates](16-enterprise-readiness.md) | Future E01–E09 | Customer-specific admission evidence; no gates passed today |
 
 Enterprise gates are conditional future requirements and do not change the current repository into an enterprise implementation project.
+
+## Component setup walkthrough
+
+The [component-by-component setup guide](17-component-setup-guide.md) translates the learning/specification requirements into ten setup/build stages with substeps and checkpoints. It distinguishes public analytics data from application storage, managed MCP from the controlled adapter, and sample construction from authorized live configuration. All checkpoints remain planned until implementation evidence is recorded.
